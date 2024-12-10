@@ -1,0 +1,4 @@
+qmake in PATH
+
+
+pip install pyqt5 --config-settings --confirm-license= --verbose
