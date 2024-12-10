@@ -1,1 +1,5 @@
-PyQt5==5.15.11
+# qt5-qmake
+# PyQt5==5.15.11
+websockets
+pydantic
+# foxglove-websocket

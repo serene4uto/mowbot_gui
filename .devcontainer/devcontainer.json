@@ -1,6 +1,20 @@
 {
-  "name": "Python 3.10.12 Development",
+  "name": "mowbot_gui",
   "image": "python:3.10.12",
+  "runArgs": [
+    "--name",
+    "mowbot_gui",
+    "--net",
+    "host",
+    // "--gpus", "all",
+    "--privileged",
+    "-v",
+    "/dev:/dev",
+    "-v",
+    "/tmp/.X11-unix:/tmp/.X11-unix",
+    "-e",
+    "DISPLAY"
+  ],
   "features": {
     "ghcr.io/devcontainers/features/docker-in-docker:2": {}
   },
