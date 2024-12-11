@@ -6,7 +6,7 @@ import argparse
 from PyQt5 import QtCore, QtWidgets
 
 from mowbot_app.app_info import __appname__
-from mowbot_app.views.main_window import MainWindow
+from mowbot_app.views import MainWindow
 from mowbot_app.config import get_config
 from mowbot_app import configs as mowbot_configs
 from mowbot_app.utils.logger import logger, ColoredFormatter, ColoredLogger

@@ -6,6 +6,7 @@ from PyQt5.QtWidgets import (
 )
 
 from mowbot_app.app_info import __appname__, __appdescription__
+from mowbot_app.views.ui import UIWidget
 
 
 class MainWindow(QMainWindow):
@@ -28,8 +29,11 @@ class MainWindow(QMainWindow):
         # Set the central widget and the main layout
         main_layout = QVBoxLayout()
         main_layout.setContentsMargins(10, 10, 10, 10)
-
-
+        
+        ui_widget = UIWidget(
+            config=self.config
+        )
+        main_layout.addWidget(ui_widget)
 
         # Set the main layout
         widget = QWidget()
