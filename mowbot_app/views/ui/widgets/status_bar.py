@@ -53,7 +53,9 @@ class StatusBar(QWidget):
         
         layout = QHBoxLayout()
         group_box = QGroupBox("Status")
-        group_box.setStyleSheet("font-weight: bold;")
+        # set the size of text in the group box
+        group_box.setStyleSheet("QGroupBox { font-size: 16px; font-weight: bold; }")
+        
         status_layout = QHBoxLayout()
         
         self.status_item_dict = {}
@@ -70,6 +72,7 @@ class StatusBar(QWidget):
         layout.addWidget(group_box)
         
         self.setLayout(layout)
+        self.setFixedHeight(100)
         
     def update_status(self, name: str, status: Literal["Inactive", "Active"]):
         """

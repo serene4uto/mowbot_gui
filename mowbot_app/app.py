@@ -1,5 +1,7 @@
-import sys
 import os
+os.environ['QTWEBENGINE_CHROMIUM_FLAGS'] = '--no-sandbox --disable-gpu'
+
+import sys
 import logging
 import argparse
 
@@ -77,6 +79,8 @@ def main():
     
     window.showMaximized()
     window.raise_()
+    
+    window.setFixedSize(window.size())
     
     # Run the app
     sys.exit(app.exec())
