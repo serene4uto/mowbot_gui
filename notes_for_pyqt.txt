@@ -6,3 +6,6 @@ pip install pyqt5 --config-settings --confirm-license= --verbose
 sudo apt-get install -y qtwebengine5-dev qtwebengine5-dev-tools
 pip install PyQtWebEngine --verbose
 pip install folium --verbose
+
+
+export QT_XCB_GL_INTEGRATION=none
