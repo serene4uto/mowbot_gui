@@ -7,4 +7,7 @@ foxglove_ws_subprotocol: foxglove.websocket.v1
 
 
 script_bringup_start: "/home/farmbot/mowbot_project/mowbot_gui/scripts/bringup_start.bash"
-script_bringup_stop: "/home/farmbot/mowbot_project/mowbot_gui/scripts/bringup_stop.bash"
+script_bringup_stop: "/home/farmbot/mowbot_project/mowbot_gui/scripts/bringup_stop.sh"
+
+script_wp_set_start: "None"
+script_wp_set_stop: "None"

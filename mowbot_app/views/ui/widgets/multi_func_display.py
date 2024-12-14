@@ -14,8 +14,10 @@ from .settings_display import SettingsDisplay
 
 
 class MultiFuncDisplay(QWidget):
-    def __init__(self):
+    def __init__(self, config):
         super().__init__()
+
+        self.config = config
         
         layout = QVBoxLayout()
         mfunc_grb = QGroupBox()
@@ -23,7 +25,7 @@ class MultiFuncDisplay(QWidget):
         
         self.staked_widget = QStackedWidget()
         
-        self.staked_widget.addWidget(WaypointsSetDisplay())
+        self.staked_widget.addWidget(WaypointsSetDisplay(config=self.config))
         self.staked_widget.addWidget(WaypointsFollowDisplay())
         self.staked_widget.addWidget(SettingsDisplay())
         

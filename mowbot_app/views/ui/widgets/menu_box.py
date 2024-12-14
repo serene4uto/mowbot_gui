@@ -12,7 +12,6 @@ class MenuBox(QWidget):
     settings_btn_clicked_signal = pyqtSignal()
     set_wp_task_btn_clicked_signal = pyqtSignal()
     follow_wp_task_btn_clicked_signal = pyqtSignal()
-    bringup_btn_clicked_signal = pyqtSignal()
     
     def __init__(self):
         super().__init__()
@@ -45,22 +44,18 @@ class MenuBox(QWidget):
         
         menu_grb.setLayout(menu_layout)
         layout.addWidget(menu_grb)
-        
-        self.bringup_btn = QPushButton('Start')
-        self.bringup_btn.setStyleSheet("font-size: 20px; font-weight: bold;")
-        self.bringup_btn.setFixedHeight(100)
-        layout.addWidget(self.bringup_btn)
+
         self.setLayout(layout)
         self.setFixedWidth(300)
         
         self.settings_btn.clicked.connect(self.on_settings_btn_clicked)
         self.set_wp_task_btn.clicked.connect(self.on_set_wp_task_btn_clicked)
         self.follow_wp_task_btn.clicked.connect(self.on_follow_wp_task_btn_clicked)
-        
+     
     
     def on_settings_btn_clicked(self):
         self.settings_btn_clicked_signal.emit()
-        
+
         
     def on_set_wp_task_btn_clicked(self):
         self.set_wp_task_btn_clicked_signal.emit()
