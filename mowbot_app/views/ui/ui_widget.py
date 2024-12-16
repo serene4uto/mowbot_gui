@@ -12,8 +12,7 @@ from PyQt5.QtCore import pyqtSignal, pyqtSlot, QProcess
 from mowbot_app.views.ui.widgets import StatusBar, MenuBox, MultiFuncDisplay, ProcessButton
 
 
-
-
+from mowbot_app.services import FoxgloveWsHandler
 
 
 class UIWidget(QWidget):
@@ -29,6 +28,8 @@ class UIWidget(QWidget):
         self.config = config
 
         self.bringup = False
+
+        self.foxglove_ws_handler = FoxgloveWsHandler(config=self.config)
         
         # Create a main vertical layout
         layout = QVBoxLayout()
@@ -87,6 +88,10 @@ class UIWidget(QWidget):
             self.mfunc_display.on_follow_wp_task_btn_clicked
         )
 
+        self.foxglove_ws_handler.sensor_status_signal.connect(
+            self.status_bar.on_status_signal_received
+        )
+
 
     def on_bringup_btn_clicked(self):
         self.bringup = not self.bringup
@@ -96,9 +101,13 @@ class UIWidget(QWidget):
             self.menu_box.setEnabled(True)
             self.mfunc_display.setEnabled(True)
             self.bringup_btn.start_process()
+            self.foxglove_ws_handler.start()
         else:
             self.bringup_btn.setText('Start Bringup')
             self.bringup_btn.setStyleSheet("font-size: 20px; font-weight: bold; color: green")
             self.menu_box.setEnabled(False)
             self.mfunc_display.setEnabled(False)
+            self.status_bar.reset_status()
+            self.foxglove_ws_handler.stop()
             self.bringup_btn.stop_process()
+            

@@ -1,10 +1,12 @@
-from typing import Literal
+from typing import Literal, Dict
 from PyQt5.QtWidgets import (
     QWidget,
     QHBoxLayout,
     QLabel,
     QGroupBox,
 )
+
+from PyQt5.QtCore import pyqtSlot
 
 class StatusItem(QWidget):
     def __init__(self, name):
@@ -46,6 +48,7 @@ class StatusBar(QWidget):
         "Right GPS",
         "Heading",
         "RTCM",
+        "Lidar",
     ]
 
     def __init__(self):
@@ -85,4 +88,18 @@ class StatusBar(QWidget):
             self.status_item_dict[name].set_status(status)
         else:
             raise KeyError(f"Status item with name '{name}' not found.")
+    
+    def reset_status(self):
+        """
+        Resets the status of all StatusItems to "Inactive".
+        """
+        for status_item in self.status_item_dict.values():
+            status_item.set_status("Inactive")
+    
+    @pyqtSlot(dict)
+    def on_status_signal_received(self, status_dict: Dict[str, str]):
+        
+        for name, status in status_dict.items():
+            self.update_status(name, status)
+
         
