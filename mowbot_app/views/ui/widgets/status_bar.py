@@ -42,7 +42,7 @@ class StatusItem(QWidget):
 class StatusBar(QWidget):
 
     STATUS_NAME_LIST = [
-        "AMR Base",
+        # "AMR Base",
         "IMU",
         "Left GPS",
         "Right GPS",
@@ -87,7 +87,8 @@ class StatusBar(QWidget):
         if name in self.status_item_dict:
             self.status_item_dict[name].set_status(status)
         else:
-            raise KeyError(f"Status item with name '{name}' not found.")
+            # raise KeyError(f"Status item with name '{name}' not found.")
+            pass
     
     def reset_status(self):
         """

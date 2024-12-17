@@ -87,6 +87,9 @@ class UIWidget(QWidget):
         self.menu_box.follow_wp_task_btn_clicked_signal.connect(
             self.mfunc_display.on_follow_wp_task_btn_clicked
         )
+        self.menu_box.util_btn_clicked_signal.connect(
+            self.mfunc_display.on_util_btn_clicked
+        )
 
         self.foxglove_ws_handler.sensor_status_signal.connect(
             self.status_bar.on_status_signal_received

@@ -10,6 +10,7 @@ from PyQt5.QtCore import pyqtSignal, pyqtSlot
 class MenuBox(QWidget):
     
     settings_btn_clicked_signal = pyqtSignal()
+    util_btn_clicked_signal = pyqtSignal()
     set_wp_task_btn_clicked_signal = pyqtSignal()
     follow_wp_task_btn_clicked_signal = pyqtSignal()
     
@@ -24,6 +25,10 @@ class MenuBox(QWidget):
         self.settings_btn = QPushButton('Settings')
         self.settings_btn.setFixedHeight(50)
         menu_layout.addWidget(self.settings_btn)
+
+        self.util_btn = QPushButton('Utilities')
+        self.util_btn.setFixedHeight(50)
+        menu_layout.addWidget(self.util_btn)
         
         task_menu_grb = QGroupBox('Tasks')
         task_menu_grb.setStyleSheet("QGroupBox { font-size: 14px; font-weight: bold; }")
@@ -49,12 +54,16 @@ class MenuBox(QWidget):
         self.setFixedWidth(300)
         
         self.settings_btn.clicked.connect(self.on_settings_btn_clicked)
+        self.util_btn.clicked.connect(self.on_util_btn_clicked)
         self.set_wp_task_btn.clicked.connect(self.on_set_wp_task_btn_clicked)
         self.follow_wp_task_btn.clicked.connect(self.on_follow_wp_task_btn_clicked)
      
     
     def on_settings_btn_clicked(self):
         self.settings_btn_clicked_signal.emit()
+
+    def on_util_btn_clicked(self):
+        self.util_btn_clicked_signal.emit()
 
         
     def on_set_wp_task_btn_clicked(self):
@@ -63,5 +72,6 @@ class MenuBox(QWidget):
     
     def on_follow_wp_task_btn_clicked(self):
         self.follow_wp_task_btn_clicked_signal.emit()
+        
         
     
