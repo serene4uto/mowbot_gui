@@ -13,6 +13,8 @@ from .waypoints_follow_display import WaypointsFollowDisplay
 from .settings_display import SettingsDisplay
 from .util_display import UtilDisplay
 
+from mowbot_app.utils.logger import logger
+
 
 class MultiFuncDisplay(QWidget):
     def __init__(self, config):
@@ -26,11 +28,15 @@ class MultiFuncDisplay(QWidget):
         
         self.staked_widget = QStackedWidget()
         
-        
-        self.staked_widget.addWidget(WaypointsSetDisplay(config=self.config))
-        self.staked_widget.addWidget(WaypointsFollowDisplay())
-        self.staked_widget.addWidget(SettingsDisplay())
-        self.staked_widget.addWidget(UtilDisplay())
+        self.wp_set_display = WaypointsSetDisplay(config=self.config)
+        self.wp_follow_display = WaypointsFollowDisplay()
+        self.settings_display = SettingsDisplay()
+        self.util_display = UtilDisplay()
+
+        self.staked_widget.addWidget(self.wp_set_display)
+        self.staked_widget.addWidget(self.wp_follow_display)
+        self.staked_widget.addWidget(self.settings_display)
+        self.staked_widget.addWidget(self.util_display)
         
         mfunc_layout.addWidget(self.staked_widget)
         mfunc_grb.setLayout(mfunc_layout)

@@ -251,7 +251,7 @@ class FoxgloveWsHandler(QObject):
                 imu_data = decode_imu(payload)
                 heading_quat = imu_data.get('orientation', {})
                 self.heading_quat_signal.emit(heading_quat)
-                logger.info(f"  IMU Data: {imu_data}")
+                # logger.info(f"  IMU Data: {imu_data}")
             
             if self.ws_subs.get(subscription_id, {}).get('topic') == '/ublox_gpsl_node/fix':
                 navsatfix_data = decode_navsatfix(payload)
@@ -261,12 +261,12 @@ class FoxgloveWsHandler(QObject):
                     'altitude': navsatfix_data.get('altitude', 0),
                 }
                 self.gps_fix_signal.emit(gps_fix)
-                logger.info(f"  Navsatfix Data: {navsatfix_data}")
+                # logger.info(f"  Navsatfix Data: {navsatfix_data}")
             
             if self.ws_subs.get(subscription_id, {}).get('topic') == '/sensor_status':
                 sensorstatus_data = decode_sensorstatus(payload)
                 self.sensor_status_signal.emit(sensorstatus_data)
-                logger.info(f"  Sensor Status Data: {sensorstatus_data}")
+                # logger.info(f"  Sensor Status Data: {sensorstatus_data}")
                 
         except struct.error as e:
             logger.error(f"Error decoding binary message: {e}")

@@ -9,8 +9,12 @@ from PyQt5.QtWidgets import (
     QComboBox,
 )
 
+from PyQt5.QtCore import pyqtSignal, pyqtSlot, QTimer
+
 from .map_view import MapView
 from .process_button import ProcessButton
+
+from mowbot_app.utils.logger import logger  
 
 
 class WaypointsSetOptionBar(QWidget):
@@ -62,6 +66,12 @@ class WaypointsSetDisplay(QWidget):
         super().__init__()
 
         self.config = config
+
+        # self.update_map_timer = QTimer(self)
+        # self.update_map_timer.timeout.connect(self.update_map)
+        # self.update_map_timer.start(2000)
+
+        self.last_gps_data: dict = {}
         
         layout = QVBoxLayout()
         
@@ -71,11 +81,34 @@ class WaypointsSetDisplay(QWidget):
         layout.setSpacing(10)
         
         # add map view
-        map_view = MapView()
-        layout.addWidget(map_view)
+        self.map_view = MapView()
+        layout.addWidget(self.map_view)
         
         
         self.setLayout(layout)
+
+    def update_map(self):
+        if self.last_gps_data:
+            self.map_view.update_map_location(
+                latitude=self.last_gps_data['latitude'],
+                longitude=self.last_gps_data['longitude'],
+                zoom=16,
+            )
+
+    @pyqtSlot(dict)
+    def on_gps_fix_signal_received(self, data: dict):
+        logger.info(f" GPS Fix signal received: {data}")
+        self.last_gps_data = data
+
+        # update the map view with the new GPS data
+        # self.map_view.update_map_location(
+        #     latitude=data['latitude'],
+        #     longitude=data['longitude'],
+        #     zoom=16,
+        # )
+        
+    
+
         
         
         

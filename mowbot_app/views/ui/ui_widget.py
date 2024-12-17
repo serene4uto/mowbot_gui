@@ -90,9 +90,13 @@ class UIWidget(QWidget):
         self.menu_box.util_btn_clicked_signal.connect(
             self.mfunc_display.on_util_btn_clicked
         )
-
+        
+        # Connect service signals
         self.foxglove_ws_handler.sensor_status_signal.connect(
             self.status_bar.on_status_signal_received
+        )
+        self.foxglove_ws_handler.gps_fix_signal.connect(
+            self.mfunc_display.wp_set_display.on_gps_fix_signal_received
         )
 
 

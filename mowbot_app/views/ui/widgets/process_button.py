@@ -4,7 +4,7 @@ from PyQt5.QtCore import QProcess
 
 
 class ProcessButton(QPushButton):
-    def __init__(self, start_script, stop_script):
+    def __init__(self, start_script=None, stop_script=None):
         super().__init__()
         
         self.start_script = start_script
@@ -24,12 +24,18 @@ class ProcessButton(QPushButton):
 
     
     def start_process(self):
+        if self.start_script is None:
+            return
+        
         self.start_proc.start(
             "/bin/bash",
             [self.start_script],
         )
 
     def stop_process(self):
+        if self.stop_script is None:
+            return
+        
         self.stop_proc.start(
             "/bin/bash",
             [self.stop_script],
