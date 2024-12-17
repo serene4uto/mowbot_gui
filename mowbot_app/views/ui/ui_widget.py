@@ -48,6 +48,7 @@ class UIWidget(QWidget):
         self.menu_box = MenuBox()
         self.hleft_layout.addWidget(self.menu_box)
 
+        operate_layout = QHBoxLayout()
         self.bringup_btn = ProcessButton(
             start_script=self.config['script_bringup_start'],
             stop_script=self.config['script_bringup_stop'],
@@ -56,6 +57,17 @@ class UIWidget(QWidget):
         self.bringup_btn.setStyleSheet("font-size: 20px; font-weight: bold; color: green")
         self.bringup_btn.setFixedHeight(100)
         self.hleft_layout.addWidget(self.bringup_btn)
+        # operate_layout.addWidget(self.bringup_btn)
+        # operate_layout.addSpacing(10)
+        # self.clean_btn = ProcessButton(
+        #     start_script=self.config['cleaning_script'],
+        #     stop_script=None,
+        # )
+        # self.clean_btn.setText('Clean')
+        # self.clean_btn.setStyleSheet("font-size: 20px; font-weight: bold; color: blue")
+        # self.clean_btn.setFixedHeight(100)
+        # operate_layout.addWidget(self.clean_btn)
+        # self.hleft_layout.addLayout(operate_layout)
         
         # Ensure the left layout takes all vertical space
         self.hlayout.addLayout(self.hleft_layout)
@@ -76,6 +88,7 @@ class UIWidget(QWidget):
 
         # Connect button
         self.bringup_btn.clicked.connect(self.on_bringup_btn_clicked)
+        # self.clean_btn.clicked.connect(self.on_clean_btn_clicked)
         
         # Connect signals
         self.menu_box.settings_btn_clicked_signal.connect(
@@ -117,4 +130,6 @@ class UIWidget(QWidget):
             self.status_bar.reset_status()
             self.foxglove_ws_handler.stop()
             self.bringup_btn.stop_process()
-            
+    
+    # def on_clean_btn_clicked(self):
+    #     self.clean_btn.start_process()

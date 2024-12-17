@@ -67,45 +67,80 @@ class WaypointsSetDisplay(QWidget):
 
         self.config = config
 
-        # self.update_map_timer = QTimer(self)
-        # self.update_map_timer.timeout.connect(self.update_map)
-        # self.update_map_timer.start(2000)
+        self.update_mark_timer = QTimer(self)
+        self.update_mark_timer.timeout.connect(self.on_update_mark_timer)
+        self.update_mark_timer.start(2000)
 
         self.last_gps_data: dict = {}
+
+        self.logged_count = 0
         
         layout = QVBoxLayout()
         
         # add option bar
-        option_bar = WaypointsSetOptionBar(config=self.config)
-        layout.addWidget(option_bar)
+        self.option_bar = WaypointsSetOptionBar(config=self.config)
+        layout.addWidget(self.option_bar)
         layout.setSpacing(10)
         
         # add map view
         self.map_view = MapView()
         layout.addWidget(self.map_view)
         
-        
         self.setLayout(layout)
 
-    def update_map(self):
+        self.map_view.update_loc_btn.clicked.connect(
+            self.update_map_location
+        )
+
+        self.map_view.create_marker(
+            name='AMR',
+            latitude=36.1141352,
+            longitude=128.4188682,
+            popup_text='AMR',
+            color='green',
+        )
+
+
+        self.option_bar.log_btn.clicked.connect(
+            self.on_log_btn_clicked
+        )
+
+    def on_log_btn_clicked(self):
+        if self.last_gps_data:
+            self.map_view.create_marker(
+                name=f'LOG_{self.logged_count}',
+                latitude=self.last_gps_data['latitude'],
+                longitude=self.last_gps_data['longitude'],
+                popup_text='LOG',
+                color='red',
+            )
+            self.logged_count += 1
+
+    def on_update_mark_timer(self):
+        if self.last_gps_data:
+            self.map_view.modify_marker(
+                name='AMR',
+                latitude=self.last_gps_data['latitude'],
+                longitude=self.last_gps_data['longitude'],
+            )
+
+    def update_map_location(self):
         if self.last_gps_data:
             self.map_view.update_map_location(
                 latitude=self.last_gps_data['latitude'],
                 longitude=self.last_gps_data['longitude'],
-                zoom=16,
+                zoom=18,
             )
+
+
 
     @pyqtSlot(dict)
     def on_gps_fix_signal_received(self, data: dict):
         logger.info(f" GPS Fix signal received: {data}")
         self.last_gps_data = data
 
-        # update the map view with the new GPS data
-        # self.map_view.update_map_location(
-        #     latitude=data['latitude'],
-        #     longitude=data['longitude'],
-        #     zoom=16,
-        # )
+
+
         
     
 
